@@ -1,0 +1,19 @@
+{
+  "name": "adventofcode",
+  "version": "1.0.0",
+  "description": "Advent of Code",
+  "main": "index.js",
+  "scripts": {
+    "test": "cucumber-js",
+    "test:verbose": "cucumber-js --format progress",
+    "setup:year": "node src/cli/setup.js year",
+    "setup:puzzle": "node src/cli/setup.js puzzle"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@cucumber/cucumber": "^12.2.0",
+    "chai": "^6.2.1"
+  }
+}
