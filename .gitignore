@@ -301,6 +301,11 @@ FakesAssemblies/
 .ntvs_analysis.dat
 node_modules/
 
+# Cucumber and test artifacts
+cucumber-report.json
+test-workspace/
+*.log
+
 # Visual Studio 6 build log
 *.plg
 
