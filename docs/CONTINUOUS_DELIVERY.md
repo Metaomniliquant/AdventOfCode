@@ -197,7 +197,7 @@ main (stable)
 npm test
 
 # 2. Run language-specific tests
-cd 2024/day01/python
+cd src/2024/day01/python
 pytest -v
 
 # 3. Check folder structure
