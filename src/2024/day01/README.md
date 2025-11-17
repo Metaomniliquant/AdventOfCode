@@ -78,7 +78,7 @@ npm run test:typescript
 ### Expected Results
 
 - **Example Input:** 11
-- **Actual Input:** (Depends on your personal puzzle input)
+- **Actual Input:** 1151792
 
 ## Acceptance Criteria Status
 
@@ -90,7 +90,8 @@ npm run test:typescript
 - [x] Largest pair: 4 and 9, distance = 5
 - [x] Total distance for example = 11 (2+1+0+1+2+5)
 - [x] All TypeScript tests pass for example input
-- [x] Solution ready for actual puzzle input
+- [x] All TypeScript tests pass for actual puzzle input (answer: 1151792)
+- [x] Solution validated for both example and actual inputs
 - [x] Code tested and validated
 - [x] Documentation updated
 
