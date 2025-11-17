@@ -173,7 +173,7 @@ describe('AuthenticationService', () => {
 2. Write simplest implementation to pass tests
 3. Run tests – verify they pass (Green)
 4. Use **@ddd-expert** for domain modeling guidance
-5. Use **@architecture-expert** for structural guidance
+5. Use **@application-architecture-expert** for structural guidance
 
 **Example**:
 ```javascript
