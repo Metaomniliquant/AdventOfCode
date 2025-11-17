@@ -37,23 +37,6 @@ We will know we have succeeded when:
 - [ ] Documentation updated
 - [ ] Code reviewed (if applicable)
 
-## Success Metrics
-
-**Primary Metric:**
-<!-- Main metric to track (e.g., performance improvement, reduced errors, faster onboarding) -->
-
-**Secondary Metrics:**
-<!-- Supporting metrics -->
-
-**Measurement Timeframe:**
-<!-- When to measure results (e.g., immediately, after 1 week, after 30 days) -->
-
-## Implementation Approach
-
-<!-- Optional: Describe the planned approach -->
-<!-- For code: BDD → ATDD → TDD → Red → Green → Refactor -->
-<!-- For documentation: Identify needs → Structure → Write → Validate -->
-
 ## Related Issues/PRs
 
 <!-- Link to related issues or pull requests -->
