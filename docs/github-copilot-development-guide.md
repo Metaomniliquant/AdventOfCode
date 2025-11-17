@@ -4,22 +4,27 @@
 
 This guide outlines a development approach that leverages **GitHub Copilot** and **Copilot agents** to build applications in any programming language or framework. The workflow emphasizes:
 
+- **Hypothesis-Driven Design (HDD)** – Start with testable hypotheses about value
 - **Behavior-Driven Development (BDD)** – Define features using Gherkin syntax
 - **Acceptance Test Driven Development (ATDD)** – Derive acceptance tests from scenarios
 - **Test Driven Development (TDD)** – Write tests before implementation
 - **Functional Principles** – Favor clarity, immutability, and composability
 - **Language Agnosticism** – Apply these practices across any language or technology stack
 
+> 💡 **New to Hypothesis-Driven Design?** See the [Hypothesis-Driven Design Guide](./HYPOTHESIS_DRIVEN_DESIGN.md) for a comprehensive introduction to formulating hypotheses in GitHub Issues and validating them through code and documentation.
+
 ## Philosophy
 
-**BDD → ATDD → TDD → Red → Green → Refactor**
+**Hypothesis → BDD → ATDD → TDD → Red → Green → Refactor**
 
-1. Write Gherkin feature scenarios (BDD)
-2. Convert scenarios to acceptance tests (ATDD)
-3. Write failing unit/integration tests (TDD)
-4. Write minimal code to pass tests
-5. Refactor while keeping tests green
-6. Repeat
+1. Formulate testable hypothesis in GitHub Issue (HDD)
+2. Write Gherkin feature scenarios from hypothesis (BDD)
+3. Convert scenarios to acceptance tests (ATDD)
+4. Write failing unit/integration tests (TDD)
+5. Write minimal code to pass tests (Red → Green)
+6. Refactor while keeping tests green
+7. Validate against hypothesis success criteria
+8. Repeat and iterate based on learnings
 
 ## Copilot Agents
 
@@ -409,12 +414,14 @@ Remember: The goal is not perfection on the first try, but continuous improvemen
 
 ## Additional Resources
 
-- [BDD Best Practices](.github/agents/bdd-expert.agent.md)
-- [DDD Patterns](.github/agents/ddd-expert.agent.md)
-- [Test Quality Guidelines](.github/agents/test-quality-reviewer.agent.md)
-- [Application Architecture Expert](.github/agents/application-architecture-expert.agent.md)
-- [UI/Styling Expert](.github/agents/ui-styling-expert.agent.md)
-- [Conventional Commits](.github/instructions/commit-message.instructions.md)
+- [Hypothesis-Driven Design Guide](./HYPOTHESIS_DRIVEN_DESIGN.md)
+- [Continuous Delivery Principles](./CONTINUOUS_DELIVERY.md)
+- [BDD Best Practices](../.github/agents/bdd-expert.agent.md)
+- [DDD Patterns](../.github/agents/ddd-expert.agent.md)
+- [Test Quality Guidelines](../.github/agents/test-quality-reviewer.agent.md)
+- [Application Architecture Expert](../.github/agents/application-architecture-expert.agent.md)
+- [UI/Styling Expert](../.github/agents/ui-styling-expert.agent.md)
+- [Conventional Commits](../.github/instructions/commit-message.instructions.md)
 
 ---
 

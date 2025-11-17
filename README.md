@@ -214,10 +214,19 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 - Cucumber.js for BDD framework
 - GitHub Actions for CI/CD
 
+## 📚 Documentation
+
+Comprehensive guides for development:
+
+- **[Hypothesis-Driven Design](./docs/HYPOTHESIS_DRIVEN_DESIGN.md)** - Start with testable hypotheses in GitHub Issues
+- **[GitHub Copilot Development Guide](./docs/github-copilot-development-guide.md)** - BDD → ATDD → TDD workflow
+- **[Continuous Delivery Principles](./docs/CONTINUOUS_DELIVERY.md)** - Automated testing and quality gates
+- **[Contributing Guidelines](./CONTRIBUTING.md)** - How to contribute to this repository
+
 ## 📞 Support
 
 For questions or issues:
-- Open an issue on GitHub
+- Open an issue on GitHub using [Hypothesis-Driven Design](./docs/HYPOTHESIS_DRIVEN_DESIGN.md) format
 - Check existing feature files for examples
 - Review the CI/CD workflow for testing patterns
 

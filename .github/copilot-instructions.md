@@ -87,6 +87,7 @@ The CI/CD pipeline automatically detects and runs tests for each language.
 
 ### General Principles
 
+- **Hypothesis-Driven Design**: Start with testable hypotheses in GitHub Issues (see `docs/HYPOTHESIS_DRIVEN_DESIGN.md`)
 - **BDD → ATDD → TDD**: Write features, acceptance tests, then unit tests before implementation
 - **Functional programming**: Favor immutability, pure functions, and composition
 - **Test-driven**: Write tests before implementation
@@ -194,7 +195,9 @@ Ensure all tests pass before merging pull requests.
 
 ## Additional Resources
 
+- **Hypothesis-Driven Design**: `docs/HYPOTHESIS_DRIVEN_DESIGN.md`
 - **Development Guide**: `docs/github-copilot-development-guide.md`
+- **Continuous Delivery**: `docs/CONTINUOUS_DELIVERY.md`
 - **Commit Guidelines**: `.github/instructions/commit-message.instructions.md`
 - **BDD Features**: `features/` directory
 - **Advent of Code**: https://adventofcode.com/
@@ -223,4 +226,4 @@ node src/cli/setup.js language <year> <day> <Language>  # Add language solution
 
 ---
 
-**Remember**: This repository values clean code, comprehensive testing, and consistent structure. Use the custom agents to get expert feedback, and follow the BDD → ATDD → TDD workflow for the best results.
+**Remember**: This repository values clean code, comprehensive testing, and consistent structure. Use the custom agents to get expert feedback, and follow the Hypothesis → BDD → ATDD → TDD workflow for the best results.
