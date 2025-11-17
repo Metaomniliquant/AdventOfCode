@@ -97,11 +97,11 @@ The CI/CD pipeline automatically detects and runs tests for each language.
 Follow Conventional Commits format as defined in `.github/instructions/commit-message.instructions.md`:
 
 ```
-type(scope): subject
+type(scope)!: subject
 
 - type: feat, fix, docs, style, refactor, perf, test, build, ci, chore, revert
 - scope: Optional, e.g., cli, bdd, day01, python
-- subject: Imperative, lowercase, ≤50 chars, no period
+- subject: Imperative, lowercase, ≤ 50 chars, no period
 ```
 
 Examples:
