@@ -365,14 +365,12 @@ Follow these principles:
 
 **Example High-Quality Documentation:**
 
-```markdown
 ## Troubleshooting: "cucumber-js: not found"
 
 ### Symptom
 When running `npm test`, you see:
-```
-sh: 1: cucumber-js: not found
-```
+
+    sh: 1: cucumber-js: not found
 
 ### Cause
 Node.js dependencies are not installed in your local environment.
@@ -380,23 +378,18 @@ Node.js dependencies are not installed in your local environment.
 ### Solution
 Install dependencies using npm:
 
-```bash
-npm install
-```
+    npm install
 
 Then run tests again:
 
-```bash
-npm test
-```
+    npm test
 
 ### Expected Output
 You should see test results like:
-```
-7 scenarios (7 passed)
-28 steps (28 passed)
-0m00.058s
-```
+
+    7 scenarios (7 passed)
+    28 steps (28 passed)
+    0m00.058s
 
 ### Prevention
 Always run `npm install` after:
@@ -407,7 +400,6 @@ Always run `npm install` after:
 ### Related Issues
 - [Package installation guide](./CONTRIBUTING.md#installation)
 - [CI/CD setup](./CONTINUOUS_DELIVERY.md)
-```
 
 ### 5. Validate Documentation Hypothesis
 
@@ -562,7 +554,6 @@ We will know we have succeeded when:
 ```
 
 **Documentation Approach:**
-```markdown
 # Quick Start (Before)
 
 1. Clone the repository
@@ -574,30 +565,28 @@ We will know we have succeeded when:
 
 ## Try it in 60 seconds
 
-```bash
-# Clone and setup
-git clone https://github.com/Metaomniliquant/AdventOfCode.git
-cd AdventOfCode
-npm install
+    # Clone and setup
+    git clone https://github.com/Metaomniliquant/AdventOfCode.git
+    cd AdventOfCode
+    npm install
 
-# Create your first puzzle (auto-generates structure)
-node src/cli/setup.js puzzle 2024 1
+    # Create your first puzzle (auto-generates structure)
+    node src/cli/setup.js puzzle 2024 1
 
-# Add a solution
-cat > 2024/day01/javascript/solution.js << 'EOF'
-function solve(input) {
-  const lines = input.trim().split('\n');
-  return lines.length;
-}
-module.exports = { solve };
-EOF
+    # Add a solution
+    cat > 2024/day01/javascript/solution.js << 'EOF'
+    function solve(input) {
+      const lines = input.trim().split('\n');
+      return lines.length;
+    }
+    module.exports = { solve };
+    EOF
 
-# Run tests
-npm test
+    # Run tests
+    npm test
 
-# See your solution
-node 2024/day01/javascript/solution.js
-```
+    # See your solution
+    node 2024/day01/javascript/solution.js
 
 **What just happened?**
 1. ✅ Created a complete puzzle structure
@@ -606,10 +595,9 @@ node 2024/day01/javascript/solution.js
 4. ✅ Ready to solve real puzzles!
 
 **Next Steps:**
-- [Replace the example with your real solution](./docs/SOLVING_PUZZLES.md)
-- [Add tests for your solution](./docs/TESTING.md)
-- [Try another language](./docs/MULTI_LANGUAGE.md)
-```
+- Replace the example with your real solution
+- Add tests for your solution (see [Development Guide](./github-copilot-development-guide.md))
+- Try another language (multi-language support is built-in)
 
 ### Example 3: Code Quality
 
@@ -641,7 +629,7 @@ module.exports = {
 ```
 
 **Validation:**
-```markdown
+
 ✅ ESLint rules prevent common imperative patterns
    - Rules enforced in CI/CD
    - Pre-commit hooks check compliance
@@ -654,7 +642,6 @@ module.exports = {
    
 ✅ Developer satisfaction with code maintainability increases
    - Survey shows 4.2/5 satisfaction (up from 3.1/5)
-```
 
 ## Hypothesis-Driven Design Workflow Summary
 
@@ -825,10 +812,10 @@ Start your next feature with a hypothesis, and let the GitHub Copilot coding age
 ## Additional Resources
 
 - [GitHub Copilot Development Guide](./github-copilot-development-guide.md)
-- [BDD Best Practices](./.github/agents/bdd-expert.agent.md)
+- [BDD Best Practices](../.github/agents/bdd-expert.agent.md)
 - [Continuous Delivery Principles](./CONTINUOUS_DELIVERY.md)
-- [Test Quality Guidelines](./.github/agents/test-quality-reviewer.agent.md)
-- [Conventional Commits](./.github/instructions/commit-message.instructions.md)
+- [Test Quality Guidelines](../.github/agents/test-quality-reviewer.agent.md)
+- [Conventional Commits](../.github/instructions/commit-message.instructions.md)
 
 ---
 
