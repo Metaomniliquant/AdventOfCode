@@ -224,7 +224,7 @@ class AuthenticationService {
 - [ ] Extract methods for clarity
 - [ ] Apply functional patterns where appropriate
 
-**Agent Review**: Ask @architecture-expert for:
+**Agent Review**: Ask @application-architecture-expert for:
 - SOLID principle violations
 - Separation of concerns
 - Design pattern opportunities
@@ -376,15 +376,14 @@ Use agents to review code frequently
 
 ### When Implementing
 1. @ddd-expert – Validate domain logic
-2. @architecture-expert – Check structure
+2. @application-architecture-expert – Check structure
 
 ### When Refactoring
 1. @test-quality-reviewer – Ensure tests still valid
-2. @architecture-expert – Verify improvements
+2. @application-architecture-expert – Verify improvements
 
 ### When Building UI
-1. @ui-expert – Review components
-2. @accessibility-expert – Check accessibility
+1. @ui-styling-expert – Review components and check accessibility
 
 ## Continuous Integration
 
@@ -410,9 +409,11 @@ Remember: The goal is not perfection on the first try, but continuous improvemen
 
 ## Additional Resources
 
-- [BDD Best Practices](.github/agents/bdd-expert.md)
-- [DDD Patterns](.github/agents/ddd-expert.md)
-- [Test Quality Guidelines](.github/agents/test-quality-reviewer.md)
+- [BDD Best Practices](.github/agents/bdd-expert.agent.md)
+- [DDD Patterns](.github/agents/ddd-expert.agent.md)
+- [Test Quality Guidelines](.github/agents/test-quality-reviewer.agent.md)
+- [Application Architecture Expert](.github/agents/application-architecture-expert.agent.md)
+- [UI/Styling Expert](.github/agents/ui-styling-expert.agent.md)
 - [Conventional Commits](.github/instructions/commit-message.instructions.md)
 
 ---
