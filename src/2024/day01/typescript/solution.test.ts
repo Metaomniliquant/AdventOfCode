@@ -4,6 +4,9 @@ import * as path from 'path';
 
 describe('Day 1: Historian Hysteria', () => {
   describe('Example input', () => {
+    // Example from AoC 2024 Day 1
+    // After sorting: left=[1,2,3,3,3,4], right=[3,3,3,4,5,9]
+    // Distances: 2+1+0+1+2+5 = 11
     const exampleInput = `3   4
 4   3
 2   5
@@ -28,13 +31,6 @@ describe('Day 1: Historian Hysteria', () => {
       const input = `3   3`;
       const result = solve(input);
       expect(result).toBe(0);
-    });
-
-    test('should handle multiple pairs correctly', () => {
-      // Pairs: (1,3)=2, (2,3)=1, (3,3)=0, (3,4)=1, (3,5)=2, (4,9)=5
-      // Total: 11
-      const result = solve(exampleInput);
-      expect(result).toBe(11);
     });
   });
 
@@ -74,32 +70,19 @@ describe('Day 1: Historian Hysteria', () => {
   });
 
   describe('Actual puzzle input', () => {
-    test('should solve actual puzzle input if file exists', () => {
+    test('should calculate correct answer for actual puzzle input', () => {
       const inputPath = path.join(__dirname, '../input/input.txt');
       
-      if (fs.existsSync(inputPath)) {
-        const actualInput = fs.readFileSync(inputPath, 'utf-8');
-        
-        // Check if the file contains actual puzzle data (not the placeholder)
-        if (actualInput.includes('# Actual Puzzle Input')) {
-          console.log('Actual puzzle input not found. Please add your input to ../input/input.txt');
-          // Skip the test if placeholder is still there
-          expect(true).toBe(true);
-        } else {
-          const result = solve(actualInput);
-          
-          // The result should be a positive number
-          expect(result).toBeGreaterThan(0);
-          expect(Number.isNaN(result)).toBe(false);
-          
-          // Log the result for verification
-          console.log(`Actual puzzle answer: ${result}`);
-        }
-      } else {
-        console.log('Actual puzzle input not found. Please add your input to ../input/input.txt');
-        // Skip the test if file doesn't exist
-        expect(true).toBe(true);
+      // Skip test if input file doesn't exist
+      if (!fs.existsSync(inputPath)) {
+        return;
       }
+      
+      const actualInput = fs.readFileSync(inputPath, 'utf-8');
+      const result = solve(actualInput);
+      
+      // Verified correct answer for AoC 2024 Day 1 Part 1
+      expect(result).toBe(1151792);
     });
   });
 });
