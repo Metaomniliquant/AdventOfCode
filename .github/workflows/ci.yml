@@ -58,7 +58,7 @@ jobs:
         # Check that year folders follow naming convention (4 digits) in src/
         cd src
         for dir in */; do
-          if [[ -d "$dir" && ! "$dir" =~ ^(cli|utils)/ ]]; then
+          if [[ -d "$dir" && ! "${dir%/}" =~ ^(cli|utils)$ ]]; then
             dirname="${dir%/}"
             if [[ "$dirname" =~ ^[0-9]{4}$ ]]; then
               echo "✓ Valid year folder: src/$dirname"
