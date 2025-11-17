@@ -44,6 +44,13 @@ Pairs and distances:
 
 **Location:** `typescript/solution.ts`
 
+**Architecture:**
+The solution follows a functional programming approach with separated concerns:
+- `parseInput()` - Extracts two lists from the input string
+- `sortLists()` - Sorts both lists in ascending order (immutable)
+- `calculateTotalDistance()` - Computes sum of absolute differences
+- `solve()` - Orchestrates the complete solution
+
 **Algorithm:**
 1. Parse input to extract two lists of numbers
 2. Sort both lists in ascending order
@@ -53,20 +60,37 @@ Pairs and distances:
 
 **Running Tests:**
 ```bash
+# Run all TypeScript tests
 npm run test:typescript
+
+# Run tests in watch mode
+npm run test:typescript:watch
+
+# Type checking
+npm run typecheck:typescript
+
+# Linting
+npm run lint:typescript
 ```
 
 **Test Coverage:**
-- ✅ Example input validation (expected result: 11)
-- ✅ Individual pair calculations
+- ✅ Example input validation (loaded from `input/example.txt`, expected result: 11)
+- ✅ Individual function unit tests (parseInput, sortLists, calculateTotalDistance)
+- ✅ Immutability tests (ensures functions don't mutate input)
 - ✅ Edge cases (single pair, reverse sorted, already sorted)
 - ✅ Large distance calculations
-- ✅ Actual puzzle input (when provided)
+- ✅ Actual puzzle input validation (expected: 1151792)
+
+**Quality Assurance:**
+- TypeScript strict mode enabled
+- ESLint validation with TypeScript rules
+- Vitest for fast, modern testing
+- Separated concerns for maintainability
 
 ### Input Files
 
 - `input/example.txt` - Example puzzle input from problem description
-- `input/input.txt` - Your personal puzzle input (add this yourself)
+- `input/input.txt` - Your personal puzzle input
 
 ### How to Add Your Puzzle Input
 

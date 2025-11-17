@@ -213,6 +213,12 @@ jobs:
         
     - name: Install dependencies
       run: npm ci
+    
+    - name: TypeScript type checking
+      run: npm run typecheck:typescript
+    
+    - name: ESLint checking
+      run: npm run lint:typescript
         
     - name: Run TypeScript tests
       run: npm run test:typescript
