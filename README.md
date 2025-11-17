@@ -15,23 +15,25 @@ A BDD-driven, multi-language repository for solving [Advent of Code](https://adv
 
 ```
 AdventOfCode/
-├── YYYY/                    # Year folder (e.g., 2023, 2024)
-│   ├── README.md           # Year overview
-│   └── dayXX/              # Day folder (zero-padded: day01, day02, etc.)
-│       ├── README.md       # Puzzle description and notes
-│       ├── input/          # Input files
-│       │   └── input.txt
-│       ├── javascript/     # Language-specific solution
-│       │   ├── solution.js
-│       │   └── solution.test.js
-│       ├── python/         # Another language solution
-│       │   ├── solution.py
-│       │   └── test_solution.py
-│       └── go/             # Yet another language
-│           ├── solution.go
-│           └── solution_test.go
+├── src/                     # Source code and solutions
+│   ├── YYYY/               # Year folder (e.g., 2023, 2024)
+│   │   ├── README.md       # Year overview
+│   │   └── dayXX/          # Day folder (zero-padded: day01, day02, etc.)
+│   │       ├── README.md   # Puzzle description and notes
+│   │       ├── input/      # Input files
+│   │       │   └── input.txt
+│   │       ├── javascript/ # Language-specific solution
+│   │       │   ├── solution.js
+│   │       │   └── solution.test.js
+│   │       ├── python/     # Another language solution
+│   │       │   ├── solution.py
+│   │       │   └── test_solution.py
+│   │       └── go/         # Yet another language
+│   │           ├── solution.go
+│   │           └── solution_test.go
+│   ├── cli/                # CLI tools
+│   └── utils/              # Utility scripts
 ├── features/               # BDD feature files
-├── src/                    # Utility scripts
 └── .github/workflows/      # CI/CD pipelines
 ```
 
@@ -168,7 +170,7 @@ Current language templates:
 ### Example: Day 1 in Python
 
 ```python
-# 2024/day01/python/solution.py
+# src/2024/day01/python/solution.py
 def solve(input_data):
     """Solve the puzzle"""
     lines = input_data.strip().split('\n')
@@ -185,7 +187,7 @@ if __name__ == "__main__":
 ### Example: Day 1 in JavaScript
 
 ```javascript
-// 2024/day01/javascript/solution.js
+// src/2024/day01/javascript/solution.js
 function solve(input) {
   const lines = input.trim().split('\n');
   // Your solution here

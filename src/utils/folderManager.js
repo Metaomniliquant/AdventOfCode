@@ -2,12 +2,20 @@ const fs = require('fs');
 const path = require('path');
 
 /**
+ * Gets the base path for year folders (src/ directory)
+ * @returns {string} - Path to the src directory
+ */
+function getBasePath() {
+  return path.join(process.cwd(), 'src');
+}
+
+/**
  * Creates a folder for a specific Advent of Code year
  * @param {string} year - The year (e.g., "2023")
  * @returns {string} - Path to the created folder
  */
 function createYearFolder(year) {
-  const yearPath = path.join(process.cwd(), year);
+  const yearPath = path.join(getBasePath(), year);
   
   if (!fs.existsSync(yearPath)) {
     fs.mkdirSync(yearPath, { recursive: true });
@@ -41,7 +49,7 @@ function padDay(day) {
 function createPuzzleFolder(year, day) {
   const paddedDay = padDay(day);
   const dayFolder = `day${paddedDay}`;
-  const puzzlePath = path.join(process.cwd(), year, dayFolder);
+  const puzzlePath = path.join(getBasePath(), year, dayFolder);
   
   if (!fs.existsSync(puzzlePath)) {
     fs.mkdirSync(puzzlePath, { recursive: true });
@@ -71,7 +79,7 @@ function createPuzzleFolder(year, day) {
  * @returns {boolean}
  */
 function yearFolderExists(year) {
-  const yearPath = path.join(process.cwd(), year);
+  const yearPath = path.join(getBasePath(), year);
   return fs.existsSync(yearPath);
 }
 
@@ -84,7 +92,7 @@ function yearFolderExists(year) {
 function puzzleFolderExists(year, day) {
   const paddedDay = padDay(day);
   const dayFolder = `day${paddedDay}`;
-  const puzzlePath = path.join(process.cwd(), year, dayFolder);
+  const puzzlePath = path.join(getBasePath(), year, dayFolder);
   return fs.existsSync(puzzlePath);
 }
 
@@ -107,7 +115,7 @@ function createLanguageFolder(year, day, language) {
   const paddedDay = padDay(day);
   const dayFolder = `day${paddedDay}`;
   const languageFolder = language.toLowerCase();
-  const langPath = path.join(process.cwd(), year, dayFolder, languageFolder);
+  const langPath = path.join(getBasePath(), year, dayFolder, languageFolder);
   
   if (!fs.existsSync(langPath)) {
     fs.mkdirSync(langPath, { recursive: true });

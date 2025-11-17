@@ -13,23 +13,25 @@ This is a BDD-driven, multi-language repository for solving [Advent of Code](htt
 
 ```
 AdventOfCode/
-├── YYYY/                    # Year folder (e.g., 2023, 2024)
-│   ├── README.md           # Year overview
-│   └── dayXX/              # Day folder (zero-padded: day01, day02, etc.)
-│       ├── README.md       # Puzzle description and notes
-│       ├── input/          # Input files
-│       │   └── input.txt
-│       ├── javascript/     # Language-specific solution
-│       │   ├── solution.js
-│       │   └── solution.test.js
-│       ├── python/         # Another language solution
-│       │   ├── solution.py
-│       │   └── test_solution.py
-│       └── go/             # Yet another language
-│           ├── solution.go
-│           └── solution_test.go
+├── src/                     # Source code and solutions
+│   ├── YYYY/               # Year folder (e.g., 2023, 2024)
+│   │   ├── README.md       # Year overview
+│   │   └── dayXX/          # Day folder (zero-padded: day01, day02, etc.)
+│   │       ├── README.md   # Puzzle description and notes
+│   │       ├── input/      # Input files
+│   │       │   └── input.txt
+│   │       ├── javascript/ # Language-specific solution
+│   │       │   ├── solution.js
+│   │       │   └── solution.test.js
+│   │       ├── python/     # Another language solution
+│   │       │   ├── solution.py
+│   │       │   └── test_solution.py
+│   │       └── go/         # Yet another language
+│   │           ├── solution.go
+│   │           └── solution_test.go
+│   ├── cli/                # CLI tools
+│   └── utils/              # Utility scripts
 ├── features/               # BDD feature files (Cucumber)
-├── src/                    # Utility scripts and CLI tools
 └── .github/
     ├── workflows/          # CI/CD pipelines
     ├── agents/             # Custom Copilot agents

@@ -20,6 +20,11 @@ Before(function () {
   if (!fs.existsSync(TEST_WORKSPACE)) {
     fs.mkdirSync(TEST_WORKSPACE, { recursive: true });
   }
+  // Create src directory in test workspace
+  const srcPath = path.join(TEST_WORKSPACE, 'src');
+  if (!fs.existsSync(srcPath)) {
+    fs.mkdirSync(srcPath, { recursive: true });
+  }
   // Change to test workspace
   this.originalCwd = process.cwd();
   process.chdir(TEST_WORKSPACE);
@@ -45,7 +50,7 @@ When('I create the year folder', function () {
 });
 
 Then('a folder named {string} should exist', function (folderName) {
-  const folderPath = path.join(process.cwd(), folderName);
+  const folderPath = path.join(process.cwd(), 'src', folderName);
   expect(fs.existsSync(folderPath)).to.be.true;
 });
 
@@ -66,7 +71,7 @@ When('I add a puzzle for day {string}', function (day) {
 });
 
 Then('a folder {string} should exist', function (folderPath) {
-  const fullPath = path.join(process.cwd(), folderPath);
+  const fullPath = path.join(process.cwd(), 'src', folderPath);
   expect(fs.existsSync(fullPath)).to.be.true;
 });
 
@@ -101,7 +106,7 @@ Then('all day folders should be zero-padded to two digits', function () {
 Then('the folders should be named {string}, {string}, and {string}', function (folder1, folder2, folder3) {
   const expectedFolders = [folder1, folder2, folder3];
   expectedFolders.forEach((folder, index) => {
-    const folderPath = path.join(process.cwd(), this.year, folder);
+    const folderPath = path.join(process.cwd(), 'src', this.year, folder);
     expect(fs.existsSync(folderPath)).to.be.true;
   });
 });
@@ -186,12 +191,12 @@ When('the CI pipeline runs', function () {
 });
 
 Then('it should build and test JavaScript solutions', function () {
-  const jsPath = path.join(process.cwd(), this.year, `day${padDay(this.day)}`, 'javascript');
+  const jsPath = path.join(process.cwd(), 'src', this.year, `day${padDay(this.day)}`, 'javascript');
   expect(fs.existsSync(jsPath)).to.be.true;
 });
 
 Then('it should build and test Python solutions', function () {
-  const pyPath = path.join(process.cwd(), this.year, `day${padDay(this.day)}`, 'python');
+  const pyPath = path.join(process.cwd(), 'src', this.year, `day${padDay(this.day)}`, 'python');
   expect(fs.existsSync(pyPath)).to.be.true;
 });
 

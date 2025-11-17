@@ -574,7 +574,7 @@ We will know we have succeeded when:
     node src/cli/setup.js puzzle 2024 1
 
     # Add a solution
-    cat > 2024/day01/javascript/solution.js << 'EOF'
+    cat > src/2024/day01/javascript/solution.js << 'EOF'
     function solve(input) {
       const lines = input.trim().split('\n');
       return lines.length;
@@ -586,7 +586,7 @@ We will know we have succeeded when:
     npm test
 
     # See your solution
-    node 2024/day01/javascript/solution.js
+    node src/2024/day01/javascript/solution.js
 
 **What just happened?**
 1. ✅ Created a complete puzzle structure
