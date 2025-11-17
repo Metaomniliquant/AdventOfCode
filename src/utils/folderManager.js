@@ -164,6 +164,16 @@ function createLanguageTemplate(langPath, language) {
         'package main\n\nimport "testing"\n\nfunc TestSample(t *testing.T) {\n\t// Add your tests here\n}\n'
       );
       break;
+    case 'typescript':
+      fs.writeFileSync(
+        path.join(langPath, 'solution.ts'),
+        '// Solution for this puzzle\n\nexport function solve(input: string): number | null {\n  // Implement your solution here\n  return null;\n}\n'
+      );
+      fs.writeFileSync(
+        path.join(langPath, 'solution.test.ts'),
+        'import { solve } from \'./solution\';\n\ntest(\'sample test\', () => {\n  // Add your tests here\n});\n'
+      );
+      break;
     default:
       // Generic template
       fs.writeFileSync(

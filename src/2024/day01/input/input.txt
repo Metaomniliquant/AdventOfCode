@@ -1,0 +1,11 @@
+# Actual Puzzle Input
+
+Please add your actual puzzle input here.
+
+To get your input:
+1. Visit https://adventofcode.com/2024/day/1/input
+2. Log in to Advent of Code
+3. Copy your personal puzzle input
+4. Replace this file's content with your input
+
+Note: Puzzle inputs are unique to each user.

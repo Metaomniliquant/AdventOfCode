@@ -6,6 +6,8 @@
   "scripts": {
     "test": "cucumber-js",
     "test:verbose": "cucumber-js --format progress",
+    "test:typescript": "jest",
+    "test:typescript:watch": "jest --watch",
     "setup:year": "node src/cli/setup.js year",
     "setup:puzzle": "node src/cli/setup.js puzzle"
   },
@@ -14,6 +16,12 @@
   "license": "ISC",
   "devDependencies": {
     "@cucumber/cucumber": "^12.2.0",
-    "chai": "^6.2.1"
+    "@types/jest": "^30.0.0",
+    "@types/node": "^24.10.1",
+    "chai": "^6.2.1",
+    "jest": "^30.2.0",
+    "ts-jest": "^29.4.5",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
   }
 }
