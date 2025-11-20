@@ -10,6 +10,8 @@
     "test:typescript:watch": "vitest",
     "lint:typescript": "eslint 'src/**/*.ts'",
     "typecheck:typescript": "tsc --noEmit",
+    "fta": "npx fta-cli src --config-path .ftarc.json",
+    "fta:typescript": "npx fta-cli src --config-path .ftarc.json",
     "setup:year": "node src/cli/setup.js year",
     "setup:puzzle": "node src/cli/setup.js puzzle"
   },
@@ -23,6 +25,7 @@
     "@typescript-eslint/parser": "^8.47.0",
     "chai": "^6.2.1",
     "eslint": "^9.39.1",
+    "fta-cli": "^3.0.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.3",
     "vitest": "^4.0.10"
