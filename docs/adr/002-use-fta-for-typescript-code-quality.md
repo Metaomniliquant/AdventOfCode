@@ -25,10 +25,10 @@ We will use **FTA (Fast TypeScript Analyzer)** for measuring and enforcing TypeS
 ### Key Decisions
 
 1. **Tool Selection**: FTA (Fast TypeScript Analyzer) v3.0.0
-2. **Score Threshold**: 60 (files exceeding this fail CI)
-3. **Analysis Scope**: All TypeScript files in `src/`
+2. **Score Threshold**: 50 (files exceeding this fail CI) - updated from initial 60
+3. **Analysis Scope**: All TypeScript and JavaScript files in `src/`
 4. **CI Integration**: Run FTA in the `test-typescript` workflow job
-5. **Configuration**: Stored in `.ftarc.json` at repository root
+5. **Configuration**: Score cap via CLI argument in npm scripts
 
 ## Rationale
 
@@ -54,9 +54,9 @@ We will use **FTA (Fast TypeScript Analyzer)** for measuring and enforcing TypeS
 6. **Zero Configuration**: Works out of the box with sensible defaults
 7. **Active Development**: Modern tool with regular updates
 
-### Why Score Cap of 60?
+### Why Score Cap of 50?
 
-**Baseline Analysis Results:**
+**Initial Baseline Analysis:**
 
 ```
 ├─ solution.ts (32 lines): FTA Score 41.34 - OK
@@ -65,21 +65,38 @@ We will use **FTA (Fast TypeScript Analyzer)** for measuring and enforcing TypeS
 └─ setup.js (70 lines): FTA Score 44.21 - OK
 ```
 
-**Rationale for 60 threshold:**
+**After Refactoring:**
 
-1. **All current TypeScript files pass** - No existing code needs refactoring
-2. **Aligns with FTA assessments** - Boundary between "Could be better" (50-60) and "Needs improvement" (60+)
-3. **Room for growth** - Allows adding features without forced refactoring
-4. **Industry standard** - Matches FTA's recommended thresholds
-5. **Reasonable complexity** - Files approaching 60 should be reviewed for refactoring opportunities
+```
+├─ solution.ts (32 lines): FTA Score 41.34 - OK
+├─ solution.test.ts (91 lines): FTA Score 12.77 - OK
+├─ folderManager.js (79 lines): FTA Score 47.99 - OK (refactored from 51.51)
+├─ languageTemplates.js (58 lines): FTA Score 10.99 - OK (extracted)
+└─ setup.js (70 lines): FTA Score 44.21 - OK
+```
+
+**Rationale for 50 threshold:**
+
+1. **All current files pass** - After refactoring folderManager.js, all code meets the standard
+2. **Aligns with FTA "OK" assessment** - Score of 50 is the boundary of the "OK" range
+3. **Proactive quality enforcement** - Stricter than industry standard to encourage better code
+4. **Proven achievable** - Demonstrated through successful refactoring of folderManager.js
+5. **Encourages modularization** - Lower threshold motivates extracting complex logic into separate modules
 
 ### Configuration Decisions
+
+**npm scripts with CLI arguments:**
+
+```json
+"fta": "npx fta-cli src --score-cap 50",
+"fta:typescript": "npx fta-cli src --score-cap 50"
+```
 
 **`.ftarc.json` settings:**
 
 ```json
 {
-  "scoreCap": 60,
+  "scoreCap": 50,
   "includeComments": false,
   "excludeUnder": 6,
   "outputLimit": 5000
@@ -88,7 +105,7 @@ We will use **FTA (Fast TypeScript Analyzer)** for measuring and enforcing TypeS
 
 **Rationale:**
 
-- **scoreCap: 60** - Explained above
+- **scoreCap: 50** - Explained above; enforced via CLI argument for reliability
 - **includeComments: false** - Comments don't affect code complexity
 - **excludeUnder: 6** - Skip trivial files (e.g., barrel exports, constants)
 - **outputLimit: 5000** - High enough to show all files in foreseeable future
@@ -115,10 +132,10 @@ We will use **FTA (Fast TypeScript Analyzer)** for measuring and enforcing TypeS
 ### Mitigations
 
 1. **Documentation**: Comprehensive guide in `docs/TYPESCRIPT_CODE_QUALITY_METRICS.md`
-2. **Reasonable Threshold**: Score cap of 60 is achievable without sacrificing readability
+2. **Achievable Threshold**: Score cap of 50 proven achievable through refactoring demonstration
 3. **Context in Decisions**: FTA score is one signal, not the only measure of quality
-4. **Escape Hatch**: Can adjust threshold or exclude files if legitimately necessary
-5. **Education**: Guide includes refactoring strategies and examples
+4. **Refactoring Guidance**: Guide includes practical strategies and real examples (folderManager.js)
+5. **Education**: Guide includes metrics explanation, refactoring patterns, and best practices
 
 ### Risks
 
@@ -134,11 +151,15 @@ We will use **FTA (Fast TypeScript Analyzer)** for measuring and enforcing TypeS
 ### Changes Made
 
 1. **Dependencies**: Added `fta-cli` as dev dependency
-2. **Configuration**: Created `.ftarc.json` with score cap of 60
-3. **Scripts**: Added `fta` and `fta:typescript` npm scripts
+2. **Configuration**: Created `.ftarc.json` with score cap of 50
+3. **Scripts**: Added `fta` and `fta:typescript` npm scripts with `--score-cap 50` CLI argument
 4. **CI Workflow**: Added FTA analysis step to `test-typescript` job
-5. **Documentation**: Created comprehensive guide in `docs/TYPESCRIPT_CODE_QUALITY_METRICS.md`
-6. **ADR**: This document
+5. **Code Refactoring**: Refactored `folderManager.js` to meet the 50 threshold
+   - Extracted language templates into `languageTemplates.js` module
+   - Reduced cyclomatic complexity through better separation of concerns
+   - Improved from FTA score 51.51 to 47.99
+6. **Documentation**: Created comprehensive guide in `docs/TYPESCRIPT_CODE_QUALITY_METRICS.md`
+7. **ADR**: This document
 
 ### Integration Points
 
@@ -162,8 +183,8 @@ We will use **FTA (Fast TypeScript Analyzer)** for measuring and enforcing TypeS
 
 ```json
 {
-  "fta": "npx fta-cli src --config-path .ftarc.json",
-  "fta:typescript": "npx fta-cli src --config-path .ftarc.json"
+  "fta": "npx fta-cli src --score-cap 50",
+  "fta:typescript": "npx fta-cli src --score-cap 50"
 }
 ```
 
@@ -184,18 +205,20 @@ If FTA proves problematic:
 > **We believe that** adding TypeScript code metrics  
 > **Will result in** higher code quality  
 > **We will know we have succeeded when:**
-> - ✅ We have a baseline measure of TypeScript code quality (Score cap: 60)
+> - ✅ We have a baseline measure of TypeScript code quality (Score cap: 50, lowered from 60)
 > - ✅ We have a collection of TypeScript code quality metrics (Cyclomatic, Halstead, FTA Score)
 > - ✅ We have foundation documentation (TYPESCRIPT_CODE_QUALITY_METRICS.md)
+> - ✅ We have demonstrated refactoring capability (folderManager.js: 51.51 → 47.99)
 
 ### Success Criteria
 
-- [x] FTA configured with baseline threshold (60)
-- [x] FTA runs automatically in CI for TypeScript
+- [x] FTA configured with baseline threshold (50, refined from initial 60)
+- [x] FTA runs automatically in CI for all JavaScript/TypeScript
 - [x] CI fails if FTA thresholds exceeded
-- [x] All current TypeScript code passes FTA checks
+- [x] All current code passes FTA checks (after refactoring)
 - [x] Documentation created and comprehensive
 - [x] All existing tests still pass
+- [x] Demonstrated successful refactoring to meet stricter threshold
 
 ### Metrics to Track
 

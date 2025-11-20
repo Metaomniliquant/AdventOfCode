@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const { getLanguageTemplate, getGenericTemplate } = require('./languageTemplates');
 
 /**
  * Gets the base path for year folders (src/ directory)
@@ -133,54 +134,11 @@ function createLanguageFolder(year, day, language) {
  * @param {string} language - The programming language
  */
 function createLanguageTemplate(langPath, language) {
-  switch (language.toLowerCase()) {
-    case 'javascript':
-      fs.writeFileSync(
-        path.join(langPath, 'solution.js'),
-        '// Solution for this puzzle\n\nfunction solve(input) {\n  // Implement your solution here\n  return null;\n}\n\nmodule.exports = { solve };\n'
-      );
-      fs.writeFileSync(
-        path.join(langPath, 'solution.test.js'),
-        'const { solve } = require(\'./solution\');\n\ntest(\'sample test\', () => {\n  // Add your tests here\n});\n'
-      );
-      break;
-    case 'python':
-      fs.writeFileSync(
-        path.join(langPath, 'solution.py'),
-        '# Solution for this puzzle\n\ndef solve(input_data):\n    """Implement your solution here"""\n    pass\n\nif __name__ == "__main__":\n    with open("../input/input.txt") as f:\n        data = f.read()\n    result = solve(data)\n    print(result)\n'
-      );
-      fs.writeFileSync(
-        path.join(langPath, 'test_solution.py'),
-        'from solution import solve\n\ndef test_sample():\n    # Add your tests here\n    pass\n'
-      );
-      break;
-    case 'go':
-      fs.writeFileSync(
-        path.join(langPath, 'solution.go'),
-        'package main\n\nimport (\n\t"fmt"\n\t"os"\n)\n\nfunc solve(input string) interface{} {\n\t// Implement your solution here\n\treturn nil\n}\n\nfunc main() {\n\tdata, _ := os.ReadFile("../input/input.txt")\n\tresult := solve(string(data))\n\tfmt.Println(result)\n}\n'
-      );
-      fs.writeFileSync(
-        path.join(langPath, 'solution_test.go'),
-        'package main\n\nimport "testing"\n\nfunc TestSample(t *testing.T) {\n\t// Add your tests here\n}\n'
-      );
-      break;
-    case 'typescript':
-      fs.writeFileSync(
-        path.join(langPath, 'solution.ts'),
-        '// Solution for this puzzle\n\nexport function solve(input: string): number | null {\n  // Implement your solution here\n  return null;\n}\n'
-      );
-      fs.writeFileSync(
-        path.join(langPath, 'solution.test.ts'),
-        'import { solve } from \'./solution\';\n\ntest(\'sample test\', () => {\n  // Add your tests here\n});\n'
-      );
-      break;
-    default:
-      // Generic template
-      fs.writeFileSync(
-        path.join(langPath, 'solution.txt'),
-        `Solution for this puzzle in ${language}\n`
-      );
-  }
+  const template = getLanguageTemplate(language) || getGenericTemplate(language);
+  
+  template.forEach(file => {
+    fs.writeFileSync(path.join(langPath, file.filename), file.content);
+  });
 }
 
 module.exports = {

@@ -1,5 +1,5 @@
 {
-  "scoreCap": 60,
+  "scoreCap": 50,
   "includeComments": false,
   "excludeUnder": 6,
   "outputLimit": 5000
