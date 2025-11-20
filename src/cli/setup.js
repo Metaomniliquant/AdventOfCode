@@ -31,47 +31,65 @@ function main() {
     process.exit(1);
   }
 
-  switch (command) {
-    case 'year':
-      const year = args[1];
-      if (!year) {
-        console.error('Error: Year is required');
+  try {
+    switch (command) {
+      case 'year':
+        const year = args[1];
+        if (!year) {
+          console.error('Error: Year is required');
+          showUsage();
+          process.exit(1);
+        }
+        const yearPath = createYearFolder(year);
+        console.log(`✓ Created year folder: ${yearPath}`);
+        break;
+
+      case 'puzzle':
+        const puzzleYear = args[1];
+        const day = args[2];
+        if (!puzzleYear || !day) {
+          console.error('Error: Year and day are required');
+          showUsage();
+          process.exit(1);
+        }
+        const puzzlePath = createPuzzleFolder(puzzleYear, day);
+        console.log(`✓ Created puzzle folder: ${puzzlePath}`);
+        break;
+
+      case 'language':
+        const langYear = args[1];
+        const langDay = args[2];
+        const language = args[3];
+        if (!langYear || !langDay || !language) {
+          console.error('Error: Year, day, and language are required');
+          showUsage();
+          process.exit(1);
+        }
+        const langPath = createLanguageFolder(langYear, langDay, language);
+        console.log(`✓ Created ${language} solution folder: ${langPath}`);
+        break;
+
+      default:
+        console.error(`Error: Unknown command "${command}"`);
         showUsage();
         process.exit(1);
-      }
-      const yearPath = createYearFolder(year);
-      console.log(`✓ Created year folder: ${yearPath}`);
-      break;
-
-    case 'puzzle':
-      const puzzleYear = args[1];
-      const day = args[2];
-      if (!puzzleYear || !day) {
-        console.error('Error: Year and day are required');
-        showUsage();
-        process.exit(1);
-      }
-      const puzzlePath = createPuzzleFolder(puzzleYear, day);
-      console.log(`✓ Created puzzle folder: ${puzzlePath}`);
-      break;
-
-    case 'language':
-      const langYear = args[1];
-      const langDay = args[2];
-      const language = args[3];
-      if (!langYear || !langDay || !language) {
-        console.error('Error: Year, day, and language are required');
-        showUsage();
-        process.exit(1);
-      }
-      const langPath = createLanguageFolder(langYear, langDay, language);
-      console.log(`✓ Created ${language} solution folder: ${langPath}`);
-      break;
-
-    default:
-      console.error(`Error: Unknown command "${command}"`);
-      showUsage();
-      process.exit(1);
+    }
+  } catch (error) {
+    // Enhanced error handling with security-focused messages
+    console.error(`\n❌ Error: ${error.message}\n`);
+    
+    // Provide helpful hints based on error type
+    if (error.message.includes('year')) {
+      console.error('Hint: Year must be a 4-digit number between 2015 and 2099 (e.g., 2024)');
+    } else if (error.message.includes('day')) {
+      console.error('Hint: Day must be a number between 1 and 25 (e.g., 1, 15, 25)');
+    } else if (error.message.includes('language')) {
+      console.error('Hint: Language must contain only alphanumeric characters, +, #, -, or _ (e.g., Python, C++, C#)');
+    } else if (error.message.includes('path traversal') || error.message.includes('illegal')) {
+      console.error('Security: Input contains potentially dangerous characters');
+    }
+    
+    process.exit(1);
   }
 }
 
