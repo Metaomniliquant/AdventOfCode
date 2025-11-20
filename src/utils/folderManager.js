@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const { getLanguageTemplate, getGenericTemplate } = require('./languageTemplates');
+const { Year, Day, Language, SafePath } = require('../domain');
 
 /**
  * Gets the base path for year folders (src/ directory)
@@ -12,30 +13,37 @@ function getBasePath() {
 
 /**
  * Creates a folder for a specific Advent of Code year
- * @param {string} year - The year (e.g., "2023")
+ * @param {string|number|Year} year - The year (e.g., "2023") or Year value object
  * @returns {string} - Path to the created folder
+ * @throws {Error} If year is invalid
  */
 function createYearFolder(year) {
-  const yearPath = path.join(getBasePath(), year);
+  // Parse and validate: create Year value object if not already one
+  const yearVO = year instanceof Year ? year : new Year(year);
   
-  if (!fs.existsSync(yearPath)) {
-    fs.mkdirSync(yearPath, { recursive: true });
+  // Use SafePath to prevent path traversal
+  const yearPath = new SafePath(getBasePath(), yearVO.toFolderName());
+  const yearPathString = yearPath.toString();
+  
+  if (!fs.existsSync(yearPathString)) {
+    fs.mkdirSync(yearPathString, { recursive: true });
   }
   
   // Create README for the year
-  const readmePath = path.join(yearPath, 'README.md');
+  const readmePath = yearPath.append('README.md').toString();
   if (!fs.existsSync(readmePath)) {
-    const readmeContent = `# Advent of Code ${year}\n\nSolutions for Advent of Code ${year}.\n`;
+    const readmeContent = `# Advent of Code ${yearVO.toString()}\n\nSolutions for Advent of Code ${yearVO.toString()}.\n`;
     fs.writeFileSync(readmePath, readmeContent);
   }
   
-  return yearPath;
+  return yearPathString;
 }
 
 /**
  * Pads a day number to two digits
  * @param {string|number} day - The day number
  * @returns {string} - Zero-padded day (e.g., "01", "15")
+ * @deprecated Use Day value object's toPaddedString() method instead
  */
 function padDay(day) {
   return String(day).padStart(2, '0');
@@ -43,58 +51,80 @@ function padDay(day) {
 
 /**
  * Creates a puzzle folder for a specific day
- * @param {string} year - The year
- * @param {string|number} day - The day number
+ * @param {string|number|Year} year - The year or Year value object
+ * @param {string|number|Day} day - The day number or Day value object
  * @returns {string} - Path to the created puzzle folder
+ * @throws {Error} If year or day is invalid
  */
 function createPuzzleFolder(year, day) {
-  const paddedDay = padDay(day);
-  const dayFolder = `day${paddedDay}`;
-  const puzzlePath = path.join(getBasePath(), year, dayFolder);
+  // Parse and validate: create value objects if not already
+  const yearVO = year instanceof Year ? year : new Year(year);
+  const dayVO = day instanceof Day ? day : new Day(day);
   
-  if (!fs.existsSync(puzzlePath)) {
-    fs.mkdirSync(puzzlePath, { recursive: true });
+  // Use SafePath to prevent path traversal
+  const puzzlePath = new SafePath(
+    getBasePath(),
+    yearVO.toFolderName(),
+    dayVO.toFolderName()
+  );
+  const puzzlePathString = puzzlePath.toString();
+  
+  if (!fs.existsSync(puzzlePathString)) {
+    fs.mkdirSync(puzzlePathString, { recursive: true });
   }
   
   // Create README for the puzzle
-  const readmePath = path.join(puzzlePath, 'README.md');
+  const readmePath = puzzlePath.append('README.md').toString();
   if (!fs.existsSync(readmePath)) {
-    const readmeContent = `# Day ${parseInt(day)}\n\n## Problem\n\n[Link to problem](https://adventofcode.com/${year}/day/${parseInt(day)})\n\n## Solutions\n\nSolutions can be implemented in multiple languages.\n`;
+    const readmeContent = `# Day ${dayVO.toNumber()}\n\n## Problem\n\n[Link to problem](https://adventofcode.com/${yearVO.toString()}/day/${dayVO.toNumber()})\n\n## Solutions\n\nSolutions can be implemented in multiple languages.\n`;
     fs.writeFileSync(readmePath, readmeContent);
   }
   
   // Create input folder
-  const inputPath = path.join(puzzlePath, 'input');
+  const inputPath = puzzlePath.append('input').toString();
   if (!fs.existsSync(inputPath)) {
     fs.mkdirSync(inputPath, { recursive: true });
     // Create placeholder for input
     fs.writeFileSync(path.join(inputPath, '.gitkeep'), '');
   }
   
-  return puzzlePath;
+  return puzzlePathString;
 }
 
 /**
  * Checks if a year folder exists
- * @param {string} year - The year
+ * @param {string|number|Year} year - The year or Year value object
  * @returns {boolean}
+ * @throws {Error} If year is invalid
  */
 function yearFolderExists(year) {
-  const yearPath = path.join(getBasePath(), year);
-  return fs.existsSync(yearPath);
+  // Parse and validate
+  const yearVO = year instanceof Year ? year : new Year(year);
+  
+  // Use SafePath for security
+  const yearPath = new SafePath(getBasePath(), yearVO.toFolderName());
+  return fs.existsSync(yearPath.toString());
 }
 
 /**
  * Checks if a puzzle folder exists
- * @param {string} year - The year
- * @param {string|number} day - The day number
+ * @param {string|number|Year} year - The year or Year value object
+ * @param {string|number|Day} day - The day number or Day value object
  * @returns {boolean}
+ * @throws {Error} If year or day is invalid
  */
 function puzzleFolderExists(year, day) {
-  const paddedDay = padDay(day);
-  const dayFolder = `day${paddedDay}`;
-  const puzzlePath = path.join(getBasePath(), year, dayFolder);
-  return fs.existsSync(puzzlePath);
+  // Parse and validate
+  const yearVO = year instanceof Year ? year : new Year(year);
+  const dayVO = day instanceof Day ? day : new Day(day);
+  
+  // Use SafePath for security
+  const puzzlePath = new SafePath(
+    getBasePath(),
+    yearVO.toFolderName(),
+    dayVO.toFolderName()
+  );
+  return fs.existsSync(puzzlePath.toString());
 }
 
 /**
@@ -107,37 +137,56 @@ function getSupportedLanguages() {
 
 /**
  * Creates a language-specific solution folder
- * @param {string} year - The year
- * @param {string|number} day - The day number
- * @param {string} language - The programming language
+ * @param {string|number|Year} year - The year or Year value object
+ * @param {string|number|Day} day - The day number or Day value object
+ * @param {string|Language} language - The programming language or Language value object
  * @returns {string} - Path to the language folder
+ * @throws {Error} If year, day, or language is invalid
  */
 function createLanguageFolder(year, day, language) {
-  const paddedDay = padDay(day);
-  const dayFolder = `day${paddedDay}`;
-  const languageFolder = language.toLowerCase();
-  const langPath = path.join(getBasePath(), year, dayFolder, languageFolder);
+  // Parse and validate: create value objects if not already
+  const yearVO = year instanceof Year ? year : new Year(year);
+  const dayVO = day instanceof Day ? day : new Day(day);
+  const langVO = language instanceof Language ? language : new Language(language);
   
-  if (!fs.existsSync(langPath)) {
-    fs.mkdirSync(langPath, { recursive: true });
+  // Use SafePath to prevent path traversal
+  const langPath = new SafePath(
+    getBasePath(),
+    yearVO.toFolderName(),
+    dayVO.toFolderName(),
+    langVO.toFolderName()
+  );
+  const langPathString = langPath.toString();
+  
+  if (!fs.existsSync(langPathString)) {
+    fs.mkdirSync(langPathString, { recursive: true });
   }
   
-  // Create language-specific template files
-  createLanguageTemplate(langPath, language);
+  // Create language-specific template files (using SafePath for security)
+  createLanguageTemplate(langPath, langVO);
   
-  return langPath;
+  return langPathString;
 }
 
 /**
  * Creates template files for a specific language
- * @param {string} langPath - Path to the language folder
- * @param {string} language - The programming language
+ * @param {SafePath} langPath - SafePath to the language folder
+ * @param {Language} language - The Language value object
+ * @throws {Error} If template file names are invalid
  */
 function createLanguageTemplate(langPath, language) {
-  const template = getLanguageTemplate(language) || getGenericTemplate(language);
+  const template = getLanguageTemplate(language.toString()) || getGenericTemplate(language.toString());
   
   template.forEach(file => {
-    fs.writeFileSync(path.join(langPath, file.filename), file.content);
+    // Additional security: validate filename to prevent directory traversal
+    const filename = file.filename;
+    if (filename.includes('..') || filename.includes('/') || filename.includes('\\')) {
+      throw new Error(`Invalid template filename: "${filename}" contains path traversal characters`);
+    }
+    
+    // Use SafePath to securely construct the file path
+    const filePath = langPath.append(filename).toString();
+    fs.writeFileSync(filePath, file.content);
   });
 }
 
