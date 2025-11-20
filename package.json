@@ -10,8 +10,8 @@
     "test:typescript:watch": "vitest",
     "lint:typescript": "eslint 'src/**/*.ts'",
     "typecheck:typescript": "tsc --noEmit",
-    "fta": "npx fta-cli src --config-path .ftarc.json",
-    "fta:typescript": "npx fta-cli src --config-path .ftarc.json",
+    "fta": "npx fta-cli src --score-cap 50",
+    "fta:typescript": "npx fta-cli src --score-cap 50",
     "setup:year": "node src/cli/setup.js year",
     "setup:puzzle": "node src/cli/setup.js puzzle"
   },

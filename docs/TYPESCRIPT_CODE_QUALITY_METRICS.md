@@ -48,7 +48,7 @@ The **FTA Score** is a composite score that provides a general indication of fil
 - **50-60**: Could be better - Consider refactoring if complexity increases
 - **60+**: Needs improvement - Should be refactored to improve maintainability
 
-Our repository uses a **score cap of 60** - files exceeding this threshold will cause CI to fail.
+Our repository uses a **score cap of 50** - files exceeding this threshold will cause CI to fail.
 
 ### Cyclomatic Complexity
 
@@ -85,7 +85,7 @@ FTA configuration is stored in `.ftarc.json` at the repository root:
 
 ```json
 {
-  "scoreCap": 60,
+  "scoreCap": 50,
   "includeComments": false,
   "excludeUnder": 6,
   "outputLimit": 5000
@@ -94,22 +94,24 @@ FTA configuration is stored in `.ftarc.json` at the repository root:
 
 **Configuration Options:**
 
-- **scoreCap** (60): Maximum allowed FTA score; files exceeding this will cause CI to fail
+- **scoreCap** (50): Maximum allowed FTA score; files exceeding this will cause CI to fail
 - **includeComments** (false): Whether to include code comments in the analysis
 - **excludeUnder** (6): Minimum line count for files to be included in analysis
 - **outputLimit** (5000): Maximum number of files to display in table output
 
-### Why Score Cap of 60?
+### Why Score Cap of 50?
 
-Based on our baseline analysis, all current TypeScript files score below 60:
+Based on our baseline analysis and refactoring efforts, all current files now score below 50:
 - `src/2024/day01/typescript/solution.ts`: 41.34 (OK)
 - `src/2024/day01/typescript/solution.test.ts`: 12.77 (OK)
+- `src/utils/folderManager.js`: 47.99 (OK) - refactored from 51.51
+- `src/utils/languageTemplates.js`: 10.99 (OK) - extracted from folderManager
 
-A score cap of 60 provides:
-- ✅ Reasonable threshold for maintainable code
-- ✅ Room for feature complexity without forced refactoring
-- ✅ Clear boundary between "Could be better" and "Needs improvement"
-- ✅ Alignment with FTA's recommended thresholds
+A score cap of 50 provides:
+- ✅ Stricter threshold for maintainable code
+- ✅ Encourages proactive refactoring before complexity grows
+- ✅ Clear boundary at the "OK" vs "Could be better" assessment
+- ✅ All current code meets this standard
 
 ## Usage
 
@@ -165,8 +167,8 @@ This returns full metrics for each file including all Halstead metrics.
 
 You should consider refactoring when:
 
-- ❌ **FTA Score > 60**: CI will fail; refactoring required
-- ⚠️ **FTA Score 50-60**: Proactive refactoring recommended
+- ❌ **FTA Score > 50**: CI will fail; refactoring required
+- ⚠️ **FTA Score 45-50**: Proactive refactoring recommended
 - ⚠️ **Cyclomatic Complexity > 15**: Consider breaking down functions
 - ⚠️ **File > 200 lines**: Consider splitting into smaller modules
 
@@ -251,18 +253,18 @@ FTA analysis runs in the `test-typescript` job when:
 
 The CI pipeline will fail if:
 
-- ❌ Any file exceeds the score cap of 60
-- ❌ The error message will show: `File <name> has a score of X, which is beyond the score cap of 60, exiting.`
+- ❌ Any file exceeds the score cap of 50
+- ❌ The error message will show: `File <name> has a score of X, which is beyond the score cap of 50, exiting.`
 
 **Resolution:**
 - Review the file(s) that failed
-- Refactor to reduce complexity
+- Refactor to reduce complexity (see refactoring strategies above)
 - Re-run FTA locally to verify improvement
 - Push changes
 
 ### Bypassing for Legitimate Cases
 
-If you have a legitimate case where a file must exceed 60 (e.g., generated code, complex algorithm):
+If you have a legitimate case where a file must exceed 50 (e.g., generated code, complex algorithm):
 
 1. **First, try to refactor** - Most code can be improved
 2. **Document why** - Explain in PR description
@@ -284,4 +286,4 @@ If you have a legitimate case where a file must exceed 60 (e.g., generated code,
 
 **Last Updated:** 2025-11-20  
 **Baseline Established:** 2025-11-20  
-**Current Score Cap:** 60
+**Current Score Cap:** 50
