@@ -1,0 +1,6 @@
+{
+  "scoreCap": 60,
+  "includeComments": false,
+  "excludeUnder": 6,
+  "outputLimit": 5000
+}

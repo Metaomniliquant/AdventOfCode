@@ -219,6 +219,9 @@ jobs:
     
     - name: ESLint checking
       run: npm run lint:typescript
+    
+    - name: FTA code quality analysis
+      run: npm run fta:typescript
         
     - name: Run TypeScript tests
       run: npm run test:typescript

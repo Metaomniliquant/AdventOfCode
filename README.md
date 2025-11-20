@@ -96,12 +96,25 @@ Verbose output:
 npm run test:verbose
 ```
 
+### Run TypeScript Tests
+
+Run TypeScript unit tests:
+```bash
+npm run test:typescript
+```
+
+Check TypeScript code quality:
+```bash
+npm run fta:typescript
+```
+
 ### Run Language-Specific Tests
 
 The CI/CD pipeline automatically detects and runs tests for:
-- JavaScript (using built-in test runners or Jest)
-- Python (using pytest)
-- Go (using `go test`)
+- **TypeScript** (using Vitest, ESLint, type checking, and FTA code quality analysis)
+- **JavaScript** (using built-in test runners or Jest)
+- **Python** (using pytest)
+- **Go** (using `go test`)
 
 ## 📋 BDD Features
 
@@ -223,7 +236,9 @@ Comprehensive guides for development:
 - **[Hypothesis-Driven Design](./docs/HYPOTHESIS_DRIVEN_DESIGN.md)** - Start with testable hypotheses in GitHub Issues
 - **[GitHub Copilot Development Guide](./docs/github-copilot-development-guide.md)** - BDD → ATDD → TDD workflow
 - **[Continuous Delivery Principles](./docs/CONTINUOUS_DELIVERY.md)** - Automated testing and quality gates
+- **[TypeScript Code Quality Metrics](./docs/TYPESCRIPT_CODE_QUALITY_METRICS.md)** - FTA code quality standards and metrics
 - **[Contributing Guidelines](./CONTRIBUTING.md)** - How to contribute to this repository
+- **[Architecture Decision Records](./docs/adr/)** - Key technical decisions and their rationale
 
 ## 📞 Support
 
