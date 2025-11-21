@@ -104,8 +104,14 @@ FTA configuration is stored in `.ftarc.json` at the repository root:
 Based on our baseline analysis and refactoring efforts, all current files now score below 50:
 - `src/2024/day01/typescript/solution.ts`: 41.34 (OK)
 - `src/2024/day01/typescript/solution.test.ts`: 12.77 (OK)
-- `src/utils/folderManager.js`: 47.99 (OK) - refactored from 51.51
+- `src/utils/folderManager.js`: 49.37 (OK) - refactored from 51.51 with security fixes
+- `src/cli/setup.js`: 45.94 (OK) - enhanced error messages
 - `src/utils/languageTemplates.js`: 10.99 (OK) - extracted from folderManager
+- `src/domain/Year.js`: 41.08 (OK) - security value object
+- `src/domain/Day.js`: 10.29 (OK) - security value object
+- `src/domain/Language.js`: 39.57 (OK) - security value object
+- `src/domain/SafePath.js`: 42.09 (OK) - security value object
+- `src/domain/validators.js`: 34.04 (OK) - shared validation utilities
 
 A score cap of 50 provides:
 - ✅ Stricter threshold for maintainable code

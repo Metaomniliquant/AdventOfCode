@@ -70,9 +70,14 @@ We will use **FTA (Fast TypeScript Analyzer)** for measuring and enforcing TypeS
 ```
 ├─ solution.ts (32 lines): FTA Score 41.34 - OK
 ├─ solution.test.ts (91 lines): FTA Score 12.77 - OK
-├─ folderManager.js (79 lines): FTA Score 47.99 - OK (refactored from 51.51)
+├─ folderManager.js (103 lines): FTA Score 49.37 - OK (refactored from 51.51 with security fixes)
+├─ setup.js (84 lines): FTA Score 45.94 - OK (enhanced error messages)
 ├─ languageTemplates.js (58 lines): FTA Score 10.99 - OK (extracted)
-└─ setup.js (70 lines): FTA Score 44.21 - OK
+├─ Year.js (27 lines): FTA Score 41.08 - OK (security value object)
+├─ Day.js (23 lines): FTA Score 10.29 - OK (security value object)
+├─ Language.js (39 lines): FTA Score 39.57 - OK (security value object)
+├─ SafePath.js (37 lines): FTA Score 42.09 - OK (security value object)
+└─ validators.js (23 lines): FTA Score 34.04 - OK (shared validation utilities)
 ```
 
 **Rationale for 50 threshold:**

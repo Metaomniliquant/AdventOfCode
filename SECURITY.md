@@ -39,11 +39,12 @@ The vulnerability has been fixed using Domain-Driven Design (DDD) principles and
 
 ### Solution Architecture
 
-1. **Value Objects** (`src/domain/valueObjects.js`):
-   - `Year`: Validates years (2015-2099, no path chars)
-   - `Day`: Validates days (1-25, no path chars)
-   - `Language`: Validates language names (alphanumeric + safe chars only)
-   - `SafePath`: Ensures paths stay within base directory
+1. **Value Objects** (`src/domain/`):
+   - `Year.js`: Validates years (2015-2099, no path chars)
+   - `Day.js`: Validates days (1-25, no path chars)
+   - `Language.js`: Validates language names (alphanumeric + safe chars only)
+   - `SafePath.js`: Ensures paths stay within base directory
+   - `validators.js`: Shared validation utilities (DRY principle)
 
 2. **Immutability**: All value objects are immutable and frozen
 3. **Fail Fast**: Validation occurs at construction time
@@ -135,4 +136,4 @@ Security fix implemented using Domain-Driven Design principles and value objects
 
 **Status**: ✅ Fixed  
 **Version**: Current  
-**Date**: 2024-11-20
+**Date**: 2025-11-20
