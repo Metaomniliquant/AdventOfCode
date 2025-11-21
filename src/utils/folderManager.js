@@ -76,7 +76,7 @@ function createPuzzleFolder(year, day) {
   // Create README for the puzzle
   const readmePath = puzzlePath.append('README.md').toString();
   if (!fs.existsSync(readmePath)) {
-    const readmeContent = `# Day ${dayVO.toNumber()}\n\n## Problem\n\n[Link to problem](https://adventofcode.com/${yearVO.toString()}/day/${dayVO.toNumber()})\n\n## Solutions\n\nSolutions can be implemented in multiple languages.\n`;
+    const readmeContent = `# Day ${dayVO.toNumber()}\n\n## Problem\n\n[Link to problem](https://adventofcode.com/${yearVO.toNumber()}/day/${dayVO.toNumber()})\n\n## Solutions\n\nSolutions can be implemented in multiple languages.\n`;
     fs.writeFileSync(readmePath, readmeContent);
   }
   

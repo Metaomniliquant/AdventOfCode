@@ -162,7 +162,7 @@ We will use **FTA (Fast TypeScript Analyzer)** for measuring and enforcing TypeS
 5. **Code Refactoring**: Refactored `folderManager.js` to meet the 50 threshold
    - Extracted language templates into `languageTemplates.js` module
    - Reduced cyclomatic complexity through better separation of concerns
-   - Improved from FTA score 51.51 to 47.99
+   - Improved from FTA score 51.51 to 49.37
 6. **Documentation**: Created comprehensive guide in `docs/TYPESCRIPT_CODE_QUALITY_METRICS.md`
 7. **ADR**: This document
 
@@ -213,7 +213,7 @@ If FTA proves problematic:
 > - ✅ We have a baseline measure of TypeScript code quality (Score cap: 50, lowered from 60)
 > - ✅ We have a collection of TypeScript code quality metrics (Cyclomatic, Halstead, FTA Score)
 > - ✅ We have foundation documentation (TYPESCRIPT_CODE_QUALITY_METRICS.md)
-> - ✅ We have demonstrated refactoring capability (folderManager.js: 51.51 → 47.99)
+> - ✅ We have demonstrated refactoring capability (folderManager.js: 51.51 → 49.37)
 
 ### Success Criteria
 
