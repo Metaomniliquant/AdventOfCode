@@ -9,6 +9,39 @@ The value objects in this directory provide:
 - **Type Safety**: Immutable objects with guaranteed validity
 - **Domain Modeling**: Clear representation of domain concepts (Year, Day, Language)
 - **Parse, Don't Validate**: If you have a valid value object, it's guaranteed to be safe
+- **DRY Principle**: Shared validation logic in `validators.js` module
+
+## Module Structure
+
+```
+src/domain/
+├── Year.js              - Year value object (2015-2099)
+├── Day.js               - Day value object (1-25)
+├── Language.js          - Language value object (with character whitelist)
+├── SafePath.js          - Safe path construction with boundary checking
+├── validators.js        - Shared validation utilities (DRY principle)
+├── validators.test.js   - Tests for shared validators
+├── index.js             - Barrel export for clean imports
+└── README.md            - This file
+```
+
+## Shared Validators
+
+The `validators.js` module provides reusable validation functions used by multiple value objects:
+
+```javascript
+const { validateNumberInRange, validateNoPathTraversal } = require('./validators');
+
+// Validate numbers within a range
+const year = validateNumberInRange(2024, 2015, 2099, 'year'); // 2024
+validateNumberInRange(2000, 2015, 2099, 'year'); // throws Error
+
+// Validate no path traversal characters
+validateNoPathTraversal('Python', 'language'); // OK
+validateNoPathTraversal('../../etc', 'language'); // throws Error
+```
+
+This follows the DRY (Don't Repeat Yourself) principle by extracting common validation logic into a single, tested module.
 
 ## Value Objects
 
@@ -17,7 +50,9 @@ The value objects in this directory provide:
 Represents a valid Advent of Code year (2015-2099).
 
 ```javascript
-const { Year } = require('./valueObjects');
+const { Year } = require('../domain');  // From utils/ or cli/
+// or
+const Year = require('./Year');  // From within domain/
 
 // Valid usage
 const year = new Year(2024);
@@ -40,7 +75,9 @@ new Year("202x");         // Not a valid number
 Represents a valid Advent of Code day (1-25).
 
 ```javascript
-const { Day } = require('./valueObjects');
+const { Day } = require('../domain');  // From utils/ or cli/
+// or
+const Day = require('./Day');  // From within domain/
 
 // Valid usage
 const day = new Day(1);
@@ -64,7 +101,9 @@ new Day("../15");     // Path traversal attempt
 Represents a valid programming language name.
 
 ```javascript
-const { Language } = require('./valueObjects');
+const { Language } = require('../domain');  // From utils/ or cli/
+// or
+const Language = require('./Language');  // From within domain/
 
 // Valid usage
 const lang = new Language('Python');
@@ -94,7 +133,9 @@ new Language('.hidden');          // Starts with dot
 Represents a validated file system path that prevents traversal attacks.
 
 ```javascript
-const { SafePath } = require('./valueObjects');
+const { SafePath } = require('../domain');  // From utils/ or cli/
+// or
+const SafePath = require('./SafePath');  // From within domain/
 
 // Valid usage
 const basePath = '/home/user/project/src';
